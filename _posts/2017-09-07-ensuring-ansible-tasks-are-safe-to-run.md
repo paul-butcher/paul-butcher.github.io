@@ -4,10 +4,10 @@ title: Ensuring Ansible Tasks are Safe to Run
 categories: ansible
 ---
 
-An important factor in the methods I use for testing definitions before deploying, is that
+An important factor in testing definitions before deploying, is that
 they do not require a connection to the hosts they would deploy to.  However, there is no 
 guarantee that that is the case.  Someone could simply add a 'check_vars' tag to a task that 
-modifies the host and all this effort is wasted.
+modifies the host and the tests are worthless.  Something is needed to guard against such an eventuality.
 
 As long as you [keep deployment keys out of the vaults]({% post_url 
 2017-08-30-keep-deployment-keys-out-of-the-codebase %}), you won't be able to do any harm by this,  
