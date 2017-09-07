@@ -12,8 +12,8 @@ modifies the host and all this effort is wasted.
 As long as you [keep deployment keys out of the vaults]({% post_url 
 2017-08-30-keep-deployment-keys-out-of-the-codebase %}), you won't be able to do any harm by this,  
 but it may be desirable for some environments to have deployment keys in the vault 
-(particularly those environments that developers actively work on).  In that situation, a 
-developer might erroneously mark some tasks as safe, then when they eventually come to try it out
+(particularly those environments that developers actively work on).  In that situation, if a 
+developer erroneously marks some tasks as safe, then when they eventually come to try it out
 on a protected environment, everything will fail for the wrong reason (i.e. that it couldn't 
 connect, rather than because the definitions are incorrect).
 
@@ -21,7 +21,7 @@ A [callback_plugin](http://docs.ansible.com/ansible/latest/dev_guide/developing_
 feedback loop to warn the developer that their code is potentially dangerous and will fail the CI 
 tests or commit hooks, and never make it to production.
 
-Simply place it in a callback_plugins directory alongside the playbooks, and it will block any
+Place it in a callback_plugins directory alongside the playbooks, and it will block any
 tasks that are tagged as 'check_vars' but run on the target host.
 
 ```python
