@@ -6,7 +6,7 @@ categories: ansible
 
 An important factor in testing definitions before deploying, is that
 they do not require a connection to the hosts they would deploy to.  However, there is no 
-guarantee that that is the case.  Someone could simply add a 'check_vars' tag to a task that 
+guarantee that that is the case.  Someone could simply add a ['check_vars']({% post_url 2017-08-29-checking-ansible-vars %}) tag to a task that 
 modifies the host and the tests are worthless.  Something is needed to guard against such an eventuality.
 
 As long as you [keep deployment keys out of the vaults]({% post_url 
