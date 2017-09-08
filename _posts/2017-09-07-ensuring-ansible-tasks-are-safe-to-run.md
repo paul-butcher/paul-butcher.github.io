@@ -78,3 +78,10 @@ class CallbackModule(CallbackBase):
         return super(self.__class__, self).v2_playbook_on_task_start(task, is_conditional)
 
 ```
+
+It is important to note that this is only a guard against accidental mistagging.  
+A nefarious user (or one who is not nefarious, but sufficiently determined to make a mistake)
+can easily bypass this by deleting this file.
+
+It also does not prevent any action that goes in “through the front door“ of a web application
+by visiting a URL from the control host.
