@@ -31,9 +31,11 @@ As in the previous post, we have a task that fails if the host doesn't match a g
 ```
 
 In group_vars/all, we build hostname_pattern
+{% raw %}
 ```yaml
 hostname_pattern: "^{{ location }}{{ environment }}{{ purpose }}\d\d$"
 ```
+{% endraw %}
 
 Then in the vars files for the various groups:
 
