@@ -1,6 +1,6 @@
 ---
 layout: post
-title: verifying ansible inventories part two
+title: Verifying Ansible inventories part two
 ---
 
 You can build up the pattern for verifying a naming convention, using fragments specified in group_vars.
