@@ -15,7 +15,7 @@ command line, and although Jenkins was running successfully, the expected versio
 Because the job didn't report on any test outcomes, it didn't break on discovering an out of date 
 test report file or anything like that.
 
-A plug in thar can fail or warn a bid if it's duration is longer or shorter than expected.
+A plugin that can fail or warn a bid if it's duration is longer or shorter than expected.
 
 Pipeline stage 
 Different to previous, or mean of previous n.
