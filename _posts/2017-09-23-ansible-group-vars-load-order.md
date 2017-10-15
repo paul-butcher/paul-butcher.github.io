@@ -16,7 +16,7 @@ Ideally, this wouldn't matter.  You should ideally avoid overriding vars even wh
 
 However, it does happen, and can cause problems if you start renaming your groups.  This is a good reason to follow the advice to define your vars in one place.
 
-Recently, I was reorganising some Ansible code, and discovered a var, buried in a group_vars file,  that was accidentally relying on this fact.  Fortunately, I noticed this before any problems arose.
+Recently, I was reorganising some Ansible code, and discovered a variable, buried in a group_vars file,  that was accidentally relying on the undocumented load order.  Fortunately, I noticed this before any problems arose.
 
 To isolate this for a demonstration, imagine this scenario.  
 
