@@ -66,7 +66,7 @@ This firewall test play checks three things -
 2. That those ports are not accessible from the machine running Ansible (this assumes that Ansible is not running on one of those hosts)
 3. That the http and https ports are accessible from the machine running Ansible
 
-
+```yaml
     - name: smoke test firewall
       hosts: all
       gather_facts: no
@@ -114,7 +114,8 @@ This firewall test play checks three things -
           with_items:
             - [80, 443]
           listen: "smoke"
-          
+  ```
+        
 ## Home Page
 
 This play visits the home page of the load balancer and each application host.  The page is checked for the presence of the text 'My Home Page'.
@@ -125,6 +126,7 @@ server, and you don't just get a 500 or the default "Congratulations, you've jus
 If you are installing an update to an application, adding some version-specific text to your homepage (either visible or hidden), and checking it here, will also give you confidence that your update has been applied.
 
 
+```yaml
     - name: run client-side smoke test
       hosts:
       - load_balancer
@@ -159,4 +161,4 @@ If you are installing an update to an application, adding some version-specific 
               - "'My Home Page' in homepage.content"
               - "{{ application_version }}" in homepage.content
           listen: "smoke"
-     
+ ```
