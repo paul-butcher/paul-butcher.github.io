@@ -35,13 +35,16 @@ One way to check this sort of thing is with smoke test plays.
     - Do all application servers work, does the load balancer?
     
 These tests don't prove that the application works properly and fulfils the expected 
-requirements, that's for your test suite and manual test plan to judge.  They just give a quick indication that it's not completely broken.
+requirements, that's for your test suite and manual test plan to judge.  They just give a quick indication 
+that it's not completely broken.  
 
 Crucially, adding tests like this means that a failed deployment can immediately raise a red flag, 
 even if all of the tasks that should have configured your hosts appeared to work.  This allows you
 to get on with diagnosing and fixing it immediately, rather than waiting for human testing or 
 log-based reporting to notify you of a problem.
- 
+
+# How
+
 I've experimented with various ways of achieving this, with handlers and roles, and decided 
 that it is best handled by separate plays, with the test tasks defined within them.  Possibly as
 a separate playbook which can be included at the end of your main playbook 
@@ -88,7 +91,7 @@ This firewall test play checks three things -
           delegate_to: "{{ item[1] }}"
           with_nested:
             - [43594, 43595]
-            - "{{ firewall_allowed_hosts }}"
+            - "{{ intercommunication_hosts }}"
           listen: "smoke"
     
         - name: local machine cannot reach intercommunication ports
@@ -125,6 +128,11 @@ server, and you don't just get a 500 or the default "Congratulations, you've jus
 
 If you are installing an update to an application, adding some version-specific text to your homepage (either visible or hidden), and checking it here, will also give you confidence that your update has been applied.
 
+By proxy, this might indicate correctness deeper in your configuration.  In Django, for example,
+it won't serve anything unless it connects appropriately to the database.
+
+You might have a status page served by your application that checks whether all appropriate services
+are correctly configured.  You can use this technique to check that page too.
 
 ```yaml
     - name: run client-side smoke test
