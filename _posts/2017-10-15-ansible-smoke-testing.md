@@ -69,6 +69,7 @@ This firewall test play checks three things -
 2. That those ports are not accessible from the machine running Ansible (this assumes that Ansible is not running on one of those hosts)
 3. That the http and https ports are accessible from the machine running Ansible
 
+{% raw %}
 ```yaml
     - name: smoke test firewall
       hosts: all
@@ -117,8 +118,9 @@ This firewall test play checks three things -
           with_items:
             - [80, 443]
           listen: "smoke"
-  ```
-        
+```
+ {% endraw %}
+       
 ## Home Page
 
 This play visits the home page of the load balancer and each application host.  The page is checked for the presence of the text 'My Home Page'.
@@ -134,6 +136,7 @@ it won't serve anything unless it connects appropriately to the database.
 You might have a status page served by your application that checks whether all appropriate services
 are correctly configured.  You can use this technique to check that page too.
 
+{% raw %}
 ```yaml
     - name: run client-side smoke test
       hosts:
@@ -170,3 +173,4 @@ are correctly configured.  You can use this technique to check that page too.
               - "{{ application_version }}" in homepage.content
           listen: "smoke"
  ```
+{% endraw %}
