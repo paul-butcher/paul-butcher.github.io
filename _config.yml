@@ -31,6 +31,14 @@ plugins:
 
 permalink: /blog/:year/:month/:day/:title
 
+defaults:
+  -
+    scope:
+      path: ""
+    values:
+      author: "Paul Butcher"
+
+
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
 # to override the default setting.
