@@ -4,7 +4,10 @@ title: Python locals()
 categories: python
 ---
 
-I recently encountered some python code that made frequent use of [locals()](https://docs.python.org/2/library/functions.html#locals).  It was a series of [Django](https://www.djangoproject.com/) views that all looked a bit like this (with varying degrees of complexity):
+I recently encountered some python code that made frequent use of [locals()](https://docs.python.org/2/library/functions.html#locals), in a way that I considered bad form.  It offers no performance benefit, and makes the code less readable.
+
+
+It was a series of [Django](https://www.djangoproject.com/) views that all looked a bit like this (with varying degrees of complexity):
 
 ```
 def my_view(request):
@@ -13,7 +16,7 @@ def my_view(request):
     render('some_template.html', request, locals())
 ```
 
-It is bad form to use locals in this way, as it makes it difficult to work out which local variables are actually used by the template, and which are redundant.  If an intermediate variable is created, for the sake of clarity or performance, that variable is then unnecessarily passed to the template.  In a short, simple function like this, it isn't that important, but in anything longer or more complex, it might start to cause problems. 
+This pattern makes it difficult to work out which local variables are actually used by the template, and which are redundant.  If an intermediate variable is created, for the sake of clarity or performance, that variable is then unnecessarily passed to the template.  In a short, simple function like this, it isn't that important, but in anything longer or more complex, it might start to cause problems. 
 
 However, it did make me wonder, was there a reason for this pattern?  In the above case, it would be clearer were it be written as a dict literal, thus:
 ```
