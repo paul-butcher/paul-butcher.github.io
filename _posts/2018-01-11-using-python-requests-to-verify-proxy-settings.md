@@ -16,7 +16,11 @@ You can examine the settings using `requests.utils.getproxies`, thus:
 
  ```
  >>> requests.utils.getproxies()
-{'http': 'http://proxy.example.com/', 'https': 'https://proxy.example.com', 'no': 'localhost,127.0.0.1,.inside.example.com'}
+{
+    'http': 'http://proxy.example.com/', 
+    'https': 'https://proxy.example.com', 
+    'no': 'localhost,127.0.0.1,.inside.example.com'
+    }
 ```
 
 You can also check whether a given URL will go through the proxy, with `requests.utils.should_bypass_proxies`, thus:
