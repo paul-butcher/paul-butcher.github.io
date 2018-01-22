@@ -28,7 +28,7 @@ def my_view(request):
     )
 ```
 
-However, that can make it slightly more difficult to use an interactive debugger like [pdb](https://docs.python.org/2/library/pdb.html).  That said, it is only a minor inconvenience.
+This rewrite could make it slightly more difficult to use an interactive debugger like [pdb](https://docs.python.org/2/library/pdb.html).  That said, it is only a minor inconvenience.
 
 Some of the views followed a pattern whereby one of the variables was used to look up the others, thus:
 
