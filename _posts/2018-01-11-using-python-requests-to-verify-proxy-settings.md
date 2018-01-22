@@ -33,4 +33,17 @@ True
 False
 ```
 
+
+One thing to note is that `should_bypass_proxies` checks no_proxy independently of 
+http_proxy and https_proxy.  It will return False as long as the URL is not matched by no_proxy, regardless of whether there is a proxy for it to bypass.
+
+To perform the check in one step,`you can use `select_proxy`, however, you will also need to pass in the proxy information as a dict, thus.  
+```
+>>> proxies = requests.utils.get_environ_proxies('http://example.com')
+>>> requests.utils.select_proxy('http://example.com', proxies)
+'http://proxy.example.com/'
+>>> del proxies['http']
+>>> requests.utils.get_environ_proxies()
+```
+
 This is ideal for a post-install check in such an application, perhaps to be exercised by an [ansible smoke test]({% post_url 2017-10-15-ansible-smoke-testing %})
