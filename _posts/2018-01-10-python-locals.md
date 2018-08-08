@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Python locals()
-categories: python
+categories: python, performance
 ---
 
 I recently encountered some python code that made frequent use of [locals()](https://docs.python.org/2/library/functions.html#locals), in a way that I considered bad form.  It offers no performance benefit, and makes the code less readable.
