@@ -4,7 +4,7 @@ title: Ansible Smoke Testing
 categories: ansible testing
 ---
 
-An advantage of declarative code like (most of) Ansible, is that it is it's own test suite.  
+An advantage of declarative code like (most of) Ansible, is that it is its own test suite.  
 If the state of the host can't be made to match your definitions, it's a failure.  
 But what if your definitions are wrong?
 
