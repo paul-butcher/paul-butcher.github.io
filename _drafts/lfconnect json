@@ -1,0 +1,81 @@
+#lfconnect
+
+lfconnect end-of-exercise QR codes resolve to a URL containing a block of base64 encoded JSON.
+A recent session on a Cross Trainer yielded this:
+
+```
+https://lfconnect.com/q?t=c&r=eyJkYyI6eyJ2IjoiMTQ2Ni42OTc2IiwidSI6IjEifSwiZHQiOiJUdWUgSnVuIDExIDEyOjI4OjE4
+IEdNVCswMTowMCAyMDE5IiwiZCI6eyJ2IjoiNC43NDE3IiwidSI6IjEifSwiYyI6IjM1MCIsImFz
+Ijp7InYiOiI4LjAzODUiLCJ1IjoiMCJ9LCJhciI6Ijc0LjAiLCJicyI6IkFTWDExNTIxOSIsImF3
+IjoiMjE4IiwiaWQiOiI1ZDJmNTZmYi04MTE3LTQyZjctOWIxZS1kOTYxMzhlN2U3OTgiLCJhbCI6
+IjE2LjA0MzIiLCJhaSI6IjAuMDAwMCIsInQiOiI1MCIsImFwIjp7InYiOiI3OjI3IiwidSI6IjAi
+fSwiYW0iOiIxMDkiLCJldCI6IjEzMjAiLCJhaHIiOiIxNjEifQ==
+```
+which decodes to 
+```
+{
+  "dc": {
+    "v": "1466.6976",
+    "u": "1"
+  },
+  "dt": "Tue Jun 11 12:28:18 GMT+01:00 2019",
+  "d": {
+    "v": "4.7417",
+    "u": "1"
+  },
+  "c": "350",
+  "as": {
+    "v": "8.0385",
+    "u": "0"
+  },
+  "ar": "74.0",
+  "bs": "ASX115219",
+  "aw": "218",
+  "id": "5d2f56fb-8117-42f7-9b1e-d96138e7e798",
+  "al": "16.0432",
+  "ai": "0.0000",
+  "t": "50",
+  "ap": {
+    "v": "7:27",
+    "u": "0"
+  },
+  "am": "109",
+  "et": "1320",
+  "ahr": "161"
+}
+```
+
+The meanings I have worked out are as follows:
+```
+{
+  "dc": {
+    "v": "1466.6976",
+    "u": "1"
+  },
+  "dt": "Tue Jun 11 12:28:18 GMT+01:00 2019",
+  "d": { //distance (1=metric, so KM)
+    "v": "4.7417",
+    "u": "1"
+  },
+  "c": "350",
+  "as": { // average speed - 7:27 min/mile == 8.05 MPH.  Don't know why this is ca.0.01 different
+    "v": "8.0385",
+    "u": "0"
+  },
+  "ar": "74.0", // average cadence ('rate') I tried to keep it above 80, but the hardest climbs and the cooldown would have reduced it.
+  "bs": "ASX115219",
+  "aw": "218",
+  "id": "5d2f56fb-8117-42f7-9b1e-d96138e7e798",
+  "al": "16.0432", // (average) level - I set it to 17, the cooldown is much gentler
+  "ai": "0.0000",
+  "t": "50",
+  "ap": { // average pace - value and units (0=imperial, so minutes/mile).
+    "v": "7:27",
+    "u": "0"
+  },
+  "am": "109",
+  "et": "1320", // elapsed time - I worked out for 20 minutes + 2 minute cooldown
+  "ahr": "161" // average heart rate.
+}
+
+```

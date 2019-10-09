@@ -8,3 +8,4 @@ A list of pages I often go to when doing Jenkins
 * [Pipeline Steps Reference](https://jenkins.io/doc/pipeline/steps/)
 * [Shared Libraries](https://jenkins.io/doc/book/pipeline/shared-libraries/)
 * [Plugin Compatibility](https://github.com/jenkinsci/pipeline-plugin/blob/master/COMPATIBILITY.md)
+* [Custom Plugins for Warnings-NG](https://github.com/jenkinsci/warnings-ng-plugin/blob/master/doc/Custom-Plugin.md)
