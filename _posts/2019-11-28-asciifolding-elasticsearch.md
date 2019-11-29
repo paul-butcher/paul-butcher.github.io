@@ -65,9 +65,9 @@ Here is where it became really odd.
 A search for _rose_, predictably returned _rose wine_.  However, a search for _rosé_
 also returned _rose wine_.  It was as though the accented version had simply been discarded.
 
-The record was definitely present. '/_search?pretty' returned both of them.
+The record was definitely present. `/_search?pretty` returned both of them.
 
-The problem, it turned out was [unicode normalization](https://unicode.org/reports/tr15/).
+The problem, it turned out, was [unicode normalization](https://unicode.org/reports/tr15/).
 
 The application that inserted the records was first normalizing the unicode to a _decomposed_
 form.  The `asciifolding` token filter only operates on composed forms.  What was actually
@@ -79,10 +79,13 @@ There are two possible solutions to this problem. Which to choose depends on con
 1. Only provide _composed_ forms (NFC/NFKC) to Elasticsearch
 2. Use the [ICU Analysis Plugin](https://www.elastic.co/guide/en/elasticsearch/plugins/current/analysis-icu.html)
 
-If you cannot install plugins to your Elasticsearch instance, then you will have to go with
-option 1.  If your application is going to have to work with a wider range of languages
-using non-latin characters, then you are likely to want to use the ICU plugin everywhere
+If you cannot install plugins to your Elasticsearch instance (and it does not already have analyze_icu),
+then you will have to go with option 1.  If your application is going to have to work with a wider range 
+of languages using non-latin characters, then you are likely to want to use the ICU plugin everywhere
 for consistency.
+
+
+The following Python script shows the differences in analysis for the four different unicode normal forms.
 
 ```python
 
