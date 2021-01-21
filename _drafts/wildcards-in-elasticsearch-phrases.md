@@ -156,12 +156,122 @@ So the next thing to do is to set [rewrite=top_terms_N](https://www.elastic.co/g
 appropriately. This depends on the individual application. It will need to 
 be set it to a sufficiently high number that it actually returns good results.
 
-All of that covers the case of wildcards within tokens.  There is another case
-to look out for - the * wildcard as a token on its own.
+```json
+{
+  "query": {
+    "span_near": {
+    	"in_order": true,
+    	"slop": 0,
+    	"clauses": [
+	    	{ "span_term": { "message": "the" } },
+	    	{ "span_multi": 
+	    		{ "match": {
+	    			"wildcard": {
+	    				"message": {
+	    					"value": "p?easant",
+	    					"rewrite": "top_terms_10000"
+	    				}
+	    			}	
+	    		}
+	    		}
+	    	},
+	    	{ "span_term": { "message": "plucker" } }
+    	]
+    }
+  }
+}
+```
 
+
+All of that covers the case of wildcards within tokens.  There is another case
+to look out for: the * wildcard as a token on its own.
+
+Using a * wildcard to match a term in a span_multi is bad for performance, and
+will probably not work very well due to the rewrite behaviour (see the [note 
+about using match_phrase for autocompetion](https://www.elastic.co/guide/en/elasticsearch/reference/7.x/query-dsl-match-query-phrase-prefix.html#match-phrase-prefix-autocomplete)
+for a hint about why.
+
+
+The best way to deal with this is use the slop facility to handle it by nesting
+span_near queries accordingly.  This way, the search can keep matching the
+exact phrase parts in the right sequence, but possibly split by an unknown 
+token. 
+
+"the casbah * a hurricane" becomes:
+
+```json
+{
+  "query": {
+	"span_near": {
+		"clauses": [
+			{
+				"span_near": {
+					"clauses": [
+						{"span_term": {"my_field": "the"}},
+						{"span_term": {"my_field": "casbah"}}
+					],
+					"in_order": true,
+					"slop": 0
+				}
+			},
+			{
+				"span_near": {
+					"clauses": [
+						{"span_term": {"my_field": "a"}},
+						{"span_term": {"my_field": "hurricane"}}
+					],
+					"in_order": true,
+					"slop": 0
+				}
+			}
+		],
+		"in_order": true,
+		"slop": 1
+	}
+  }
+}
+```
+
+Multiple sequential * tokens translate to a higher slop value, 
+so "the * * a hurricane" becomes:
+
+```json
+{
+  "query": {
+	"span_near": {
+		"clauses": [
+			{"span_term": {"my_field": "the"}},
+			{
+				"span_near": {
+					"clauses": [
+						{"span_term": {"my_field": "a"}},
+						{"span_term": {"my_field": "hurricane"}}
+					],
+					"in_order": true,
+					"slop": 0
+				}
+			}
+		],
+		"in_order": true,
+		"slop": 2
+	}
+  }
+}
+```
+
+Note that this slop is a maximum distance. If the users are expecting a * to 
+mean that an unknown token definitely exists between the two parts of the 
+query, then some other technique will be needed. The above query would match
+"the casbah like a hurricane", or just "the a hurricane".
+
+
+Multiple * tokens separated by other tokens needs to be translated into further 
+nested `span_near` queries.
+
+#TODO Example of that
+ 
 
 TODO: run profile and explain.
-TODO: Why is it best not to just do this anyway (analysis etc.)
 TODO: case normalisation
 
-TODO: all the rest.
+TODO: other ideas
