@@ -1,6 +1,7 @@
 ---
 layout: post
-title: Wildcards in Elasticsearch Phrases
+title: Wildcards in Elasticsearch Phrase Searches
+date: 2021-01-23 22:11 +0000
 ---
 
 A few times now, I have been asked to add wildcards to an exact phrase 
@@ -119,7 +120,7 @@ so `the p?easant plucker` becomes
 }
 ```
 
-or a prefix, so `the pheasant pluck* comes` becomes:
+or a prefix, so `the pheasant pluck* comes` (but not pluck??) becomes:
 
 ```json
 {
@@ -268,10 +269,74 @@ query, then some other technique will be needed. The above query would match
 Multiple * tokens separated by other tokens needs to be translated into further 
 nested `span_near` queries.
 
-#TODO Example of that
+Once upon a *, I drove my * * the station
  
+```json
+{
+  "query": {
+	"span_near": {
+		"clauses": [
+			{
+				"span_near": {
+					"in_order": true,
+					"slop": 1,
+					"clauses": [
+						{
+							"span_near": {
+								"in_order": true,
+								"slop": 0,
+								"clauses": [
+									{"span_term": {"my_field": "Once"}},
+									{"span_term": {"my_field": "upon"}},
+									{"span_term": {"my_field": "a"}}
+								]
+							}
+						},
+						{
+							"span_near": {
+								"in_order": true,
+								"slop": 2,
+								"clauses": [
+									{
+										"span_near": {
+											"in_order": true,
+											"slop": 0,
+											"clauses": [
+												{"span_term": {"my_field": "I"}},
+												{"span_term": {"my_field": "drove"}},
+												{"span_term": {"my_field": "my"}}
+											]
+										}
+									},
+									{
+										"span_near": {
+											"in_order": true,
+											"slop": 0,
+											"clauses": [
+												{"span_term": {"my_field": "the"}},
+												{"span_term": {"my_field": "station"}}
+											]
+										}
+									}
+								]
+							}
+						}
+					]
+				}
+			}
+		]
+	}
+  }
+}
+```
 
-TODO: run profile and explain.
-TODO: case normalisation
+If all groups of stars are the same length, the queries do not have to be 
+deeply nested like this. 
 
-TODO: other ideas
+Another thing to be aware of is that span_term behaves in a similar way to 
+[term](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-term-query.html)
+in that it does not analyse the query term. This means that appropriate normalisation
+has to be done (e.g. lowercase, strip punctuation) before putting it in the query.
+
+I think that covers all the possible ways a wildcard might be wanted in a phrase
+search.
