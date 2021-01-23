@@ -72,13 +72,13 @@ becomes
 {
   "query": {
     "span_near": {
-    	"in_order": true,
-    	"slop": 0,
-    	"clauses": [
-	    	{ "span_term": { "message": "the" } },
-	    	{ "span_term": { "message": "pheasant" } },
-	    	{ "span_term": { "message": "plucker" } }
-    	]
+      "in_order": true,
+      "slop": 0,
+      "clauses": [
+        { "span_term": { "message": "the" } },
+        { "span_term": { "message": "pheasant" } },
+        { "span_term": { "message": "plucker" } }
+      ]
     }
   }
 }
@@ -99,22 +99,22 @@ so `the p?easant plucker` becomes
 {
   "query": {
     "span_near": {
-    	"in_order": true,
-    	"slop": 0,
-    	"clauses": [
-	    	{ "span_term": { "message": "the" } },
-	    	{ "span_multi": 
-	    		{ "match": {
-	    			"wildcard": {
-	    				"message": {
-	    					"value": "p?easant"
-	    				}
-	    			}	
-	    		}
-	    		}
-	    	},
-	    	{ "span_term": { "message": "plucker" } }
-    	]
+      "in_order": true,
+      "slop": 0,
+      "clauses": [
+        { "span_term": { "message": "the" } },
+        { "span_multi": 
+          { "match": {
+            "wildcard": {
+              "message": {
+                "value": "p?easant"
+              }
+            }  
+          }
+          }
+        },
+        { "span_term": { "message": "plucker" } }
+      ]
     }
   }
 }
@@ -126,23 +126,23 @@ or a prefix, so `the pheasant pluck* comes` (but not pluck??) becomes:
 {
   "query": {
     "span_near": {
-    	"in_order": true,
-    	"slop": 0,
-    	"clauses": [
-	    	{ "span_term": { "message": "the" } },
-	    	{ "span_term": { "message": "pheasant" } },
-	    	{ "span_multi": 
-	    		{ "match": {
-	    			"prefix": {
-	    				"message": {
-	    					"value": "pluck"
-	    				}
-	    			}	
-	    		}
-	    		}
-	    	},
-	    	{ "span_term": { "message": "comes" } }
-    	]
+      "in_order": true,
+      "slop": 0,
+      "clauses": [
+        { "span_term": { "message": "the" } },
+        { "span_term": { "message": "pheasant" } },
+        { "span_multi": 
+          { "match": {
+            "prefix": {
+              "message": {
+                "value": "pluck"
+              }
+            }  
+          }
+          }
+        },
+        { "span_term": { "message": "comes" } }
+      ]
     }
   }
 }
@@ -150,8 +150,8 @@ or a prefix, so `the pheasant pluck* comes` (but not pluck??) becomes:
 
 The trouble is that, as it says in the Elasticsearch docs, 
 
-	span_multi queries will hit too many clauses failure if the number of terms
-	that match the query exceeds the boolean query limit (defaults to 1024).
+  span_multi queries will hit too many clauses failure if the number of terms
+  that match the query exceeds the boolean query limit (defaults to 1024).
 
 So the next thing to do is to set [rewrite=top_terms_N](https://www.elastic.co/guide/en/elasticsearch/reference/7.x/query-dsl-multi-term-rewrite.html)
 appropriately. This depends on the individual application. It will need to 
@@ -161,23 +161,23 @@ be set it to a sufficiently high number that it actually returns good results.
 {
   "query": {
     "span_near": {
-    	"in_order": true,
-    	"slop": 0,
-    	"clauses": [
-	    	{ "span_term": { "message": "the" } },
-	    	{ "span_multi": 
-	    		{ "match": {
-	    			"wildcard": {
-	    				"message": {
-	    					"value": "p?easant",
-	    					"rewrite": "top_terms_10000"
-	    				}
-	    			}	
-	    		}
-	    		}
-	    	},
-	    	{ "span_term": { "message": "plucker" } }
-    	]
+      "in_order": true,
+      "slop": 0,
+      "clauses": [
+        { "span_term": { "message": "the" } },
+        { "span_multi": 
+          { "match": {
+            "wildcard": {
+              "message": {
+                "value": "p?easant",
+                "rewrite": "top_terms_10000"
+              }
+            }  
+          }
+          }
+        },
+        { "span_term": { "message": "plucker" } }
+      ]
     }
   }
 }
@@ -203,32 +203,32 @@ token.
 ```json
 {
   "query": {
-	"span_near": {
-		"clauses": [
-			{
-				"span_near": {
-					"clauses": [
-						{"span_term": {"my_field": "the"}},
-						{"span_term": {"my_field": "casbah"}}
-					],
-					"in_order": true,
-					"slop": 0
-				}
-			},
-			{
-				"span_near": {
-					"clauses": [
-						{"span_term": {"my_field": "a"}},
-						{"span_term": {"my_field": "hurricane"}}
-					],
-					"in_order": true,
-					"slop": 0
-				}
-			}
-		],
-		"in_order": true,
-		"slop": 1
-	}
+  "span_near": {
+    "clauses": [
+      {
+        "span_near": {
+          "clauses": [
+            {"span_term": {"my_field": "the"}},
+            {"span_term": {"my_field": "casbah"}}
+          ],
+          "in_order": true,
+          "slop": 0
+        }
+      },
+      {
+        "span_near": {
+          "clauses": [
+            {"span_term": {"my_field": "a"}},
+            {"span_term": {"my_field": "hurricane"}}
+          ],
+          "in_order": true,
+          "slop": 0
+        }
+      }
+    ],
+    "in_order": true,
+    "slop": 1
+  }
   }
 }
 ```
@@ -239,23 +239,23 @@ so "the * * a hurricane" becomes:
 ```json
 {
   "query": {
-	"span_near": {
-		"clauses": [
-			{"span_term": {"my_field": "the"}},
-			{
-				"span_near": {
-					"clauses": [
-						{"span_term": {"my_field": "a"}},
-						{"span_term": {"my_field": "hurricane"}}
-					],
-					"in_order": true,
-					"slop": 0
-				}
-			}
-		],
-		"in_order": true,
-		"slop": 2
-	}
+  "span_near": {
+    "clauses": [
+      {"span_term": {"my_field": "the"}},
+      {
+        "span_near": {
+          "clauses": [
+            {"span_term": {"my_field": "a"}},
+            {"span_term": {"my_field": "hurricane"}}
+          ],
+          "in_order": true,
+          "slop": 0
+        }
+      }
+    ],
+    "in_order": true,
+    "slop": 2
+  }
   }
 }
 ```
@@ -274,58 +274,58 @@ Once upon a *, I drove my * * the station
 ```json
 {
   "query": {
-	"span_near": {
-		"clauses": [
-			{
-				"span_near": {
-					"in_order": true,
-					"slop": 1,
-					"clauses": [
-						{
-							"span_near": {
-								"in_order": true,
-								"slop": 0,
-								"clauses": [
-									{"span_term": {"my_field": "Once"}},
-									{"span_term": {"my_field": "upon"}},
-									{"span_term": {"my_field": "a"}}
-								]
-							}
-						},
-						{
-							"span_near": {
-								"in_order": true,
-								"slop": 2,
-								"clauses": [
-									{
-										"span_near": {
-											"in_order": true,
-											"slop": 0,
-											"clauses": [
-												{"span_term": {"my_field": "I"}},
-												{"span_term": {"my_field": "drove"}},
-												{"span_term": {"my_field": "my"}}
-											]
-										}
-									},
-									{
-										"span_near": {
-											"in_order": true,
-											"slop": 0,
-											"clauses": [
-												{"span_term": {"my_field": "the"}},
-												{"span_term": {"my_field": "station"}}
-											]
-										}
-									}
-								]
-							}
-						}
-					]
-				}
-			}
-		]
-	}
+  "span_near": {
+    "clauses": [
+      {
+        "span_near": {
+          "in_order": true,
+          "slop": 1,
+          "clauses": [
+            {
+              "span_near": {
+                "in_order": true,
+                "slop": 0,
+                "clauses": [
+                  {"span_term": {"my_field": "Once"}},
+                  {"span_term": {"my_field": "upon"}},
+                  {"span_term": {"my_field": "a"}}
+                ]
+              }
+            },
+            {
+              "span_near": {
+                "in_order": true,
+                "slop": 2,
+                "clauses": [
+                  {
+                    "span_near": {
+                      "in_order": true,
+                      "slop": 0,
+                      "clauses": [
+                        {"span_term": {"my_field": "I"}},
+                        {"span_term": {"my_field": "drove"}},
+                        {"span_term": {"my_field": "my"}}
+                      ]
+                    }
+                  },
+                  {
+                    "span_near": {
+                      "in_order": true,
+                      "slop": 0,
+                      "clauses": [
+                        {"span_term": {"my_field": "the"}},
+                        {"span_term": {"my_field": "station"}}
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
   }
 }
 ```
