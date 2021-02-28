@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Animating Anaglyphs
+categories: python
 date: 2021-02-28 07:47 +0000
 ---
 The trouble with [3D anaglyph images](https://en.wikipedia.org/wiki/Anaglyph_3D)
