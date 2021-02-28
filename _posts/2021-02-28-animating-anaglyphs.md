@@ -112,6 +112,19 @@ this one of [Mount Remarkable](https://mars.nasa.gov/resources/6174/stereo-view-
 <iframe src='https://mars.nasa.gov/embed/6174/' width='100%' height='400'  scrolling='no' frameborder='0'></iframe>
 ![3D animation of Mount Remarkable](/assets/img/pia18084.both.gif)
 
-However, those (like the Mount Remarkable image) that have parts of the rover in 
-the extreme foreground may benefit from cropping out the bottom of the image.
+However, those (like the Mount Remarkable image) that have parts of the rover, or
+other obvious large objects in the extreme foreground may benefit from cropping 
+out the bottom of the image, as the way it jumps back and forth is not particularly 
+beautiful.
+
+```python
+
+with Image.open('PIA17948.jpg') as img:
+    img = img.crop((0, 0, img.width, img.height-500))
+    ...
+```
+
+![3D animation of Mount Remarkable, excluding the rover](/assets/img/pia18084.both-cropped-foreground.gif)
+
+
 
