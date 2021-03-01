@@ -7,14 +7,14 @@ date: 2021-02-28 07:47 +0000
 The trouble with [3D anaglyph images](https://en.wikipedia.org/wiki/Anaglyph_3D)
 is that I don't have a pair of blue/red spectacles. However, given a stereoscopic image,
 you can turn it into an animated gif using [Wiggle Stereoscopy](https://en.wikipedia.org/wiki/Wiggle_stereoscopy)
-that gives a bit of a 3D effect.
+to give a bit of a 3D effect.
 
 I first saw the animated gif technique a few years ago when looking at 
 [Europeana](https://www.europeana.eu/) [GifItUp](https://gifitup.net/).
 I had first thought that I might be able to automate their creation based on 
 the [stereoscope images](https://www.europeana.eu/en/search?page=1&view=grid&query=stereoscope)
 in the collection, but it turned out that the [manual technique of carefully 
-lining them up](https://digitalnz.org/blog/posts/how-to-make-an-animated-gif-from-a-stereograph), 
+lining them up](https://digitalnz.org/blog/posts/how-to-make-an-animated-gif-from-a-stereograph) 
 is hard to beat, and that even when I did get it right, many of the images looked a bit rubbish. I turned 
 my efforts to [other animations](/blog/2019/10/10/gifitup-falling-blossom) instead.
 
