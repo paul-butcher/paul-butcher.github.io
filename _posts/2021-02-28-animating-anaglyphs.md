@@ -26,7 +26,7 @@ and wondered if I could try again.
 
 A good example is this one from the [Insight mission](https://mars.nasa.gov/resources/6030/martian-landscape-with-rock-rows-and-mount-sharp-stereo/?site=insight):
 
-<iframe src='https://mars.nasa.gov/embed/6030/' width='100%' height='400'  scrolling='no' frameborder='0'></iframe>
+![The Junda outcrop in anaglyph 3d](assets/img/6030_PIA17948-br.jpg)
 
 Which can be rendered as an animated gif like this:
 
@@ -109,7 +109,7 @@ To come up with the final animation:
 The same script produces good output for other Mars anaglyphs, such as
 this one of [Mount Remarkable](https://mars.nasa.gov/resources/6174/stereo-view-of-mount-remarkable-and-surrounding-outcrops-at-mars-rovers-waypoint/?site=msl)
 
-<iframe src='https://mars.nasa.gov/embed/6174/' width='100%' height='400'  scrolling='no' frameborder='0'></iframe>
+![Mount Remarkable in anaglyph 3D](/assets/img/6174_pia18084_stereo-navcam-Sol597-br.jpg)
 ![3D animation of Mount Remarkable](/assets/img/pia18084.both.gif)
 
 However, those (like the Mount Remarkable image) that have parts of the rover, or
