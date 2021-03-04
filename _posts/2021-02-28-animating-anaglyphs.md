@@ -6,16 +6,16 @@ date: 2021-02-28 07:47 +0000
 ---
 The trouble with [3D anaglyph images](https://en.wikipedia.org/wiki/Anaglyph_3D)
 is that I don't have a pair of blue/red spectacles. However, given a stereoscopic image,
-you can turn it into an [animated gif](https://digitalnz.org/blog/posts/how-to-make-an-animated-gif-from-a-stereograph)
-that gives a bit of a 3D effect.
+you can turn it into an animated gif using [Wiggle Stereoscopy](https://en.wikipedia.org/wiki/Wiggle_stereoscopy)
+to give a bit of a 3D effect.
 
 I first saw the animated gif technique a few years ago when looking at 
 [Europeana](https://www.europeana.eu/) [GifItUp](https://gifitup.net/).
 I had first thought that I might be able to automate their creation based on 
 the [stereoscope images](https://www.europeana.eu/en/search?page=1&view=grid&query=stereoscope)
-in the collection, but it turned out that the manual technique of carefully 
-lining them up (described on the digitalnz page), is hard to beat, and that
-even when I did get it right, many of the images looked a bit rubbish. I turned 
+in the collection, but it turned out that the [manual technique of carefully 
+lining them up](https://digitalnz.org/blog/posts/how-to-make-an-animated-gif-from-a-stereograph) 
+is hard to beat, and that even when I did get it right, many of the images looked a bit rubbish. I turned 
 my efforts to [other animations](/blog/2019/10/10/gifitup-falling-blossom) instead.
 
 However, the recent [Mars Landing](https://mars.nasa.gov/mars2020/), and 
@@ -75,7 +75,7 @@ images to each eye.  The impression of depth comes from each eye seeing somethin
 slightly different as it does in real 3D life.
 
 In the stereoscopic animation, both eyes are seeing the same thing. The impression
-of depth comes from parallax, the animation is as though the viewer is rapidly 
+of depth comes from motion parallax, the animation is as though the viewer is rapidly 
 shifting their head from side to side.  For this to work well, something in the 
 distance has to stay the same in both images.
 
@@ -119,12 +119,13 @@ beautiful.
 
 ```python
 
-with Image.open('PIA17948.jpg') as img:
+with Image.open('pia18084.jpg') as img:
     img = img.crop((0, 0, img.width, img.height-500))
     ...
 ```
 
 ![3D animation of Mount Remarkable, excluding the rover](/assets/img/pia18084.both-cropped-foreground.gif)
 
-
+Further improvements could be made by getting rid of the black borders and adding view interpolation, 
+but I think that the results are pretty tasty for less than ten lines.
 
