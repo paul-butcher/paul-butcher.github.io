@@ -26,7 +26,7 @@ and wondered if I could try again.
 
 A good example is this one from the [Insight mission](https://mars.nasa.gov/resources/6030/martian-landscape-with-rock-rows-and-mount-sharp-stereo/?site=insight):
 
-![The Junda outcrop in anaglyph 3d](assets/img/6030_PIA17948-br.jpg)
+![The Junda outcrop in anaglyph 3d](/assets/img/6030_PIA17948-br.jpg)
 
 Which can be rendered as an animated gif like this:
 
