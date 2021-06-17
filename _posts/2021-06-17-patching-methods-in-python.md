@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Patching Methods in Python
+categories: python testing
 date: 2021-06-17 21:33 +0100
 ---
 Today, a colleague was adding tests to an old and previously untested class.
