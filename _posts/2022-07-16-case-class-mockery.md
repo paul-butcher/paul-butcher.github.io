@@ -1,13 +1,14 @@
 ---
 layout: post
 title: Companion Objects Make a Mockery of Testing Case Classes
-categories: scala testing
+categories: scala, testing
 date: 2022-07-15 22:33 +0100
 ---
 
 Checking scala outputs by comparing them to case class instances in the 
 test can be tempting, but it's too easy to accidentally turn them into
 mocks by introducing companion objects.
+
 
 What do I mean by "mocks"?  I mean that they fall on the "mock" side
 of the ["mock vs stub"](https://martinfowler.com/articles/mocksArentStubs.html)
