@@ -9,10 +9,10 @@ Checking scala outputs by comparing them to case class instances in the
 test can be tempting, but it's too easy to accidentally turn them into
 mocks by introducing companion objects.
 
-
 What do I mean by "mocks"?  I mean that they fall on the "mock" side
 of the ["mock vs stub"](https://martinfowler.com/articles/mocksArentStubs.html)
 division.
+
 
 Obviously, they are not really mocks, the companion objects are actual
 production code, but once you introduce them,
