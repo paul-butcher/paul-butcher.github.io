@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Wildcards in Elasticsearch Phrase Searches
+categories: elasticsearch
 date: 2021-01-23 22:11 +0000
 ---
 
